@@ -1,0 +1,30 @@
+nav {
+	display: flex;
+	padding: 0.5em;
+
+	.topbar {
+		display: flex;
+		justify-content: space-around;
+		.logo {
+			font-size: 2.5rem;
+			margin: 0.1em;
+		}
+
+		.burger {
+			margin: 1em;
+			cursor: pointer;
+			div {
+				width: 25px;
+				height: 2px;
+				background-color: black;
+				margin: 5px;
+			}
+		}
+	}
+	.nav-items {
+		border: 1px solid green;
+		margin-top: 10px;
+		list-style: none;
+		display: none;
+	}
+}
