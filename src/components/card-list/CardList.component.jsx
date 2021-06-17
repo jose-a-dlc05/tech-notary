@@ -1,5 +1,5 @@
 import React from "react";
-import BlogCard from "../card/card.component";
+import BlogCard from "../card/Card.component";
 import "./card-list.styles.scss";
 
 const CardList = (props) => {
