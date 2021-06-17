@@ -16,7 +16,7 @@ const Navbar = () => {
 		const newStyles = ["nav-items", !menuStyles.includes("active") && "active"]
 			.filter((style) => style)
 			.join(" ");
-		console.log(newStyles);
+
 		setMenuStyles(newStyles);
 	};
 
@@ -37,8 +37,6 @@ const Navbar = () => {
 					<ul className={menuStyles}>
 						<li className='nav-list-items'>
 							<li className='nav-item'>Home</li>
-							<li className='nav-item'>Profile</li>
-							<li className='nav-item'>Write Post</li>
 							<li className='nav-item'>Login</li>
 						</li>
 						<li className='nav-btn'>

@@ -1,0 +1,21 @@
+.card-list {
+	width: 85vw;
+	margin: 0 auto;
+	display: grid;
+	grid-template-columns: 1fr;
+	grid-gap: 20px;
+}
+
+// iPads, Tablets
+@media (min-width: 481px) and (max-width: 768px) {
+	.card-list {
+		grid-template-columns: 1fr 1fr;
+	}
+}
+
+// Small screens, laptops
+@media (min-width: 769px) {
+	.card-list {
+		grid-template-columns: 1fr 1fr 1fr;
+	}
+}

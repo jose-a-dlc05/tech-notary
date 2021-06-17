@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Navbar from "./components/nav-bar/Navbar.component";
-import SearchBar from "./components/search-bar/Search.component";
+import HomePage from "./pages/HomePage/HomePage.page";
+// import ProfilePage from "./pages/ProfilePage/ProfilePage.page";
 import "./App.styles.scss";
 import "semantic-ui-css/semantic.min.css";
 
@@ -9,7 +10,7 @@ class App extends Component {
 		return (
 			<div>
 				<Navbar />
-				<SearchBar />
+				<HomePage />
 			</div>
 		);
 	}
