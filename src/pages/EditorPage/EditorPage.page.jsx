@@ -14,8 +14,8 @@ export default function App() {
 
 	return (
 		<EditorContext.Provider value={contextValue}>
-			<section className='container'>
-				<div className='editor-wrapper'>
+			<section className='editor-container'>
+				<div className='editor-items'>
 					<MarkedInput />
 					<MarkedResult />
 				</div>
