@@ -68,8 +68,6 @@ nav {
 	@media (min-width: 481px) and (max-width: 768px) {
 		.nav-items {
 			.nav-list-items {
-				flex-direction: row;
-				justify-content: space-around;
 				font-size: 110%;
 			}
 		}
@@ -103,10 +101,25 @@ nav {
 	background: #018f01;
 	color: #fff;
 	text-align: center;
-	display: inline-block;
+	display: block;
 	width: 100%;
-	max-width: 770px;
-	font-size: 120%;
+	max-width: 386px;
+	font-size: 100%;
+}
+@media (min-width: 481px) and (max-width: 768px) {
+	.nav-btn {
+		display: flex;
+		justify-content: center;
+		.btn-ca {
+			font-size: 110%;
+		}
+	}
+}
+
+@media (min-width: 769px) {
+	.btn-ca {
+		font-size: 120%;
+	}
 }
 
 .btn-ca:hover {
