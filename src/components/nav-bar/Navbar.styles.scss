@@ -60,6 +60,9 @@ nav {
 
 			.nav-item {
 				padding: 1.1em 0;
+				text-decoration: none;
+				color: #333;
+				width: 30px;
 			}
 		}
 	}
@@ -87,6 +90,7 @@ nav {
 			justify-content: space-between;
 			.nav-items {
 				display: flex;
+
 				.nav-item {
 					margin-right: 2rem;
 					font-weight: 700;
