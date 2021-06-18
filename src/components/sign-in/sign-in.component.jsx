@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import FormInput from "../form-input/form-input.component";
 
 import "./sign-in.styles.scss";
 
@@ -12,9 +13,17 @@ class SignIn extends Component {
 		};
 	}
 
-	handleSubmit = (event) => {};
+	handleSubmit = (event) => {
+		event.preventDefault();
 
-	handleChange = (event) => {};
+		this.setState({ email: "", password: "" });
+	};
+
+	handleChange = (event) => {
+		const { value, name } = event.target;
+
+		this.setState({ [name]: value });
+	};
 
 	render() {
 		return (
@@ -22,7 +31,7 @@ class SignIn extends Component {
 				<span>Sign in with your email and password</span>
 
 				<form onSubmit={this.handleSubmit}>
-					<input
+					<FormInput
 						name='email'
 						type='email'
 						onChange={this.handleChange}
@@ -30,7 +39,7 @@ class SignIn extends Component {
 						label='email'
 						required
 					/>
-					<input
+					<FormInput
 						name='password'
 						type='password'
 						onChange={this.handleChange}
