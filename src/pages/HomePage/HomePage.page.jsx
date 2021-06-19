@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import SearchBar from "../../components/search-bar/Search.component";
 import CardList from "../../components/card-list/CardList.component";
-import CredentialsPage from "../SignInPage/CredentialsPage.page";
 
 export default class HomePage extends Component {
 	constructor() {
@@ -57,8 +56,6 @@ export default class HomePage extends Component {
 			<div>
 				<SearchBar />
 				<CardList blogs={this.state.blogs} />
-				<hr />
-				<CredentialsPage />
 			</div>
 		);
 	}
