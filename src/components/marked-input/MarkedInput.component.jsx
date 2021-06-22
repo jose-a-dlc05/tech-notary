@@ -12,7 +12,6 @@ function MarkedInput(props) {
 
 	return (
 		<div className='markdown-container'>
-			<h2 className='markdown-title'>Markdown Text</h2>
 			<textarea onChange={onInputChange}></textarea>
 		</div>
 	);

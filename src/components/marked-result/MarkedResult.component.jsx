@@ -10,7 +10,6 @@ export function MarkedResult(props) {
 
 	return (
 		<section className='result-container'>
-			<h2 className='result-title'>Preview</h2>
 			<div className='result-area'>
 				<ReactMarkdown
 					children={markdownText}

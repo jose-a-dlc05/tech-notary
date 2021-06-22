@@ -6,6 +6,7 @@ import ToggableTabs from "../../components/toggable-tabs/toggable-tabs.component
 
 
 import "./EditorPage.styles.scss";
+import SignInPage from "../SignInPage/SignInPage.page";
 
 export default function App() {
 	const [markdownText, setMarkdownText] = useState("");
@@ -18,7 +19,13 @@ export default function App() {
 	return (
 		<EditorContext.Provider value={contextValue}>
 			<section className='editor-container'>
-				<ToggableTabs />
+				<ToggableTabs tabObjects={[
+					{name:"Markdown",component: <MarkedInput />}, 
+					{name:"Preview",component: <MarkedResult /> }, 
+					{name:"Publish", component: "Publish Form Coming Soon"}
+					]
+				} 
+				/>
 				{/*<div className='editor-items'>
 					<MarkedInput />
 					<MarkedResult />

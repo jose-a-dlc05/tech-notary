@@ -1,23 +1,4 @@
 .tab {
   width: 100%;
-&-btn  {
-	width: 100%;
-	height: 50px;
-	background-color: #018f01;
-	letter-spacing: 0.5;
-	color: #fff;
-	border: none;
-	border-bottom: 1px solid grey;
-	cursor: pointer;
-	text-transform: uppercase;
-}
-@media (min-width: 481px) {
-	&-btn {
-    width: 33.33%;
-    border-right: 1px solid black;
-    border-bottom: 3px solid grey;
-  }
-}
-
 }
 
