@@ -5,7 +5,8 @@ import "./App.styles.scss";
 
 import Navbar from "./components/nav-bar/Navbar.component";
 import HomePage from "./pages/HomePage/HomePage.page";
-import CredentialsPage from "./pages/SignInPage/CredentialsPage.page";
+import SignInPage from "./pages/SignInPage/SignInPage.page";
+import SignUpPage from "./pages/SignUpPage/SignUpPage.page";
 import EditorPage from "./pages/EditorPage/EditorPage.page";
 import ProfilePage from "./pages/ProfilePage/ProfilePage.page";
 
@@ -18,7 +19,9 @@ class App extends Component {
 				<Navbar />
 				<Switch>
 					<Route exact path='/' component={HomePage} />
-					<Route path='/login' component={CredentialsPage} />
+					<Route path='/login' component={SignInPage} />
+					<Route path='/signup' component={SignUpPage} />
+					<Route path="/postcreate" component={EditorPage}/>
 				</Switch>
 			</div>
 		);

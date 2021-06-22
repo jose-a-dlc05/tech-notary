@@ -1,0 +1,26 @@
+.sign-up {
+	width: 70%;
+	max-width: 518px;
+	display: flex;
+	flex-direction: column;
+	margin: auto;
+	margin-top: 150px;
+	// transform: translate(-50%, -50%);
+
+	span {
+		font-weight: bold;
+		font-size: 1.1em;
+	}
+	@media (min-width: 481px) and (max-width: 768px) {
+		span {
+			text-align: center;
+			font-size: 1.4em;
+		}
+	}
+	@media (min-width: 769px) {
+		span {
+			text-align: center;
+			font-size: 1.6em;
+		}
+	}
+}

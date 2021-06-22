@@ -1,7 +1,7 @@
 import React from "react";
 import SignIn from "../../components/sign-in/sign-in.component";
 
-const CredentialsPage = () => {
+const SignInPage = () => {
 	return (
 		<div className='container'>
 			<SignIn />
@@ -9,4 +9,4 @@ const CredentialsPage = () => {
 	);
 };
 
-export default CredentialsPage;
+export default SignInPage;
