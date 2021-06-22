@@ -44,9 +44,9 @@ const Navbar = () => {
 							</Link>
 						</li>
 						<li className='nav-btn'>
-							<a href='#' className='btn btn-ca'>
+							<Link className='btn btn-ca' to="/signup">
 								Create Account
-							</a>
+							</Link>
 						</li>
 					</ul>
 				</div>
