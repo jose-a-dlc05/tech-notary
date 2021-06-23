@@ -8,7 +8,7 @@ import HomePage from "./pages/HomePage/HomePage.page";
 import SignInPage from "./pages/SignInPage/SignInPage.page";
 import SignUpPage from "./pages/SignUpPage/SignUpPage.page";
 import EditorPage from "./pages/EditorPage/EditorPage.page";
-import ProfilePage from "./pages/ProfilePage/ProfilePage.page";
+// import ProfilePage from "./pages/ProfilePage/ProfilePage.page";
 
 import "semantic-ui-css/semantic.min.css";
 

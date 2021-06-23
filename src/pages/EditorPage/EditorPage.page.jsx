@@ -4,9 +4,7 @@ import { MarkedResult } from "../../components/marked-result/MarkedResult.compon
 import EditorContext from "../../components/editor-context/EditorContext.component";
 import ToggableTabs from "../../components/toggable-tabs/toggable-tabs.components";
 
-
 import "./EditorPage.styles.scss";
-import SignInPage from "../SignInPage/SignInPage.page";
 
 export default function App() {
 	const [markdownText, setMarkdownText] = useState("");
@@ -19,25 +17,18 @@ export default function App() {
 	return (
 		<EditorContext.Provider value={contextValue}>
 			<section className='editor-container'>
-				<ToggableTabs tabObjects={[
-					{name:"Markdown",component: <MarkedInput />}, 
-					{name:"Preview",component: <MarkedResult /> }, 
-					{name:"Publish", component: "Publish Form Coming Soon"}
-					]
-				} 
-				/>
-				{/*<div className='editor-items'>
-					<MarkedInput />
-					<MarkedResult />
-	</div>*/}
+				<ToggableTabs>
+					<div label='Markdown'>
+						<MarkedInput />
+					</div>
+					<div label='Preview'>
+						<MarkedResult />
+					</div>
+				</ToggableTabs>
 			</section>
 		</EditorContext.Provider>
 	);
 }
-
-
-
-
 
 /**.custom-button {
 	min-width: 165px;

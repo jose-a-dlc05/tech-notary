@@ -1,4 +1,24 @@
 .tab {
-  width: 100%;
+	width: 100%;
 }
 
+.tab-list {
+	border-bottom: 1px solid #018f01;
+	padding-left: 0;
+}
+
+.tab-list-item {
+	display: inline-block;
+	list-style: none;
+	margin-top: 1rem;
+	margin-bottom: -1px;
+	padding: 0.5rem 0.75rem;
+	font-size: 115%;
+	cursor: pointer;
+}
+
+.tab-list-active {
+	background-color: white;
+	border: solid #05ce05;
+	border-width: 1px 1px 0 1px;
+}

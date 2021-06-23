@@ -1,23 +1,54 @@
-import React from 'react'
-import './toggable-tabs.styles.scss';
-import TabButton from './toggable-tab-elements/tab-button.components';
-import TabContent from './toggable-tab-elements/tab-content.components';
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import ToggableTab from "../toggable-tab/toggable-tab.component";
+import "./toggable-tabs.styles.scss";
 
-export default function ToggableTabs({tabObjects}) {
-  return (
-    <div className="tab">
-      {
-        tabObjects.map(tabObject => {
-        return <TabButton>{tabObject.name}</TabButton>
-        })
-      }
-      {
-        tabObjects.map(tabObject => {
-          return <TabContent {...tabObject}/>
-        })
-      }
-		</div>
-  )
+export default class ToggableTabs extends Component {
+	constructor(props) {
+		super(props);
+
+		this.state = {
+			activeTab: this.props.children[0].props.label,
+		};
+	}
+
+	onClickTabItem = (tab) => {
+		this.setState({ activeTab: tab });
+	};
+
+	render() {
+		const {
+			onClickTabItem,
+			props: { children },
+			state: { activeTab },
+		} = this;
+		return (
+			<div className='tabs'>
+				<ol className='tab-list'>
+					{children.map((child) => {
+						const { label } = child.props;
+
+						return (
+							<ToggableTab
+								activeTab={activeTab}
+								key={label}
+								label={label}
+								onClick={onClickTabItem}
+							/>
+						);
+					})}
+				</ol>
+				<div className='tab-content'>
+					{children.map((child) => {
+						if (child.props.label !== activeTab) return undefined;
+						return child.props.children;
+					})}
+				</div>
+			</div>
+		);
+	}
+
+	static propTypes = {
+		children: PropTypes.instanceOf(Array).isRequired,
+	};
 }
-
-
