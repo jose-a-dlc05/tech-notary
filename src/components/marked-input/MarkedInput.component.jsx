@@ -6,7 +6,7 @@ import CustomButton from "../custom-button/custom-button.component";
 
 function MarkedInput(props) {
 	const [input, setInput] = useState({ blogTitle: "", bodyText: "" });
-	const { setMarkdownText } = useContext(EditorContext);
+	const { markdownText, setMarkdownText } = useContext(EditorContext);
 
 	const onInputChange = (event) => {
 		const newValue = event.currentTarget.value;
@@ -36,7 +36,12 @@ function MarkedInput(props) {
 					label='Title'
 					required
 				/>
-				<textarea onChange={onInputChange} rows='20' cols='50'></textarea>
+				<textarea
+					onChange={onInputChange}
+					value={markdownText}
+					rows='20'
+					cols='50'
+				></textarea>
 				<CustomButton type='submit'>Publish</CustomButton>
 			</form>
 		</div>
