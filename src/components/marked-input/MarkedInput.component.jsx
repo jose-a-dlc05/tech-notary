@@ -5,7 +5,7 @@ import FormInput from "../form-input/form-input.component";
 import CustomButton from "../custom-button/custom-button.component";
 
 function MarkedInput(props) {
-	const [input, setInput] = useState({ blogTitle: "", bodyText: "" });
+	const [blogTitle, setBlogTitle] = useState("");
 	const { markdownText, setMarkdownText } = useContext(EditorContext);
 
 	const onInputChange = (event) => {
@@ -16,13 +16,15 @@ function MarkedInput(props) {
 	const handleSubmit = (event) => {
 		event.preventDefault();
 
-		this.setInput({ blogTitle: "", bodyText: "" });
+		console.log(blogTitle);
+		console.log(markdownText);
+
+		setBlogTitle("");
+		setMarkdownText("");
 	};
 
 	const handleChange = (event) => {
-		const { value, name } = event.target;
-
-		this.setInput({ [name]: value });
+		setBlogTitle(event.target.value);
 	};
 
 	return (
@@ -31,7 +33,7 @@ function MarkedInput(props) {
 				<FormInput
 					type='text'
 					name='blogTitle'
-					value={input.blogTitle}
+					value={blogTitle}
 					onChange={handleChange}
 					label='Title'
 					required
