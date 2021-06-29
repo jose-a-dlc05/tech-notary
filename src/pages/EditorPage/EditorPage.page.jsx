@@ -9,10 +9,13 @@ import "./EditorPage.styles.scss";
 
 export default function App({ submitPost }) {
 	const [markdownText, setMarkdownText] = useState("");
+	const [blogTitle, setBlogTitle] = useState("");
 
 	const contextValue = {
 		markdownText,
 		setMarkdownText,
+		blogTitle,
+		setBlogTitle,
 	};
 
 	return (

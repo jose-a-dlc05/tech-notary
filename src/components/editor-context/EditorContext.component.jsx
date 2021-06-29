@@ -1,6 +1,8 @@
 import React from "react";
 
 const defaultContext = {
+	blogTitle: "",
+	setBlogTitle: "",
 	markdownText: "",
 	setMarkdownText: "",
 };

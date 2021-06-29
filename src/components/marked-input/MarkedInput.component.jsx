@@ -1,16 +1,21 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import "./MarkedInput.styles.scss";
 import EditorContext from "../editor-context/EditorContext.component";
 import FormInput from "../form-input/form-input.component";
 import CustomButton from "../custom-button/custom-button.component";
 
 function MarkedInput(props) {
-	const [blogTitle, setBlogTitle] = useState("");
-	const { markdownText, setMarkdownText } = useContext(EditorContext);
+	const { markdownText, setMarkdownText, blogTitle, setBlogTitle } =
+		useContext(EditorContext);
 
-	const onInputChange = (event) => {
+	const onInputBodyChange = (event) => {
 		const newValue = event.currentTarget.value;
 		setMarkdownText(newValue);
+	};
+
+	const onInputTitleChange = (event) => {
+		const newValue = event.currentTarget.value;
+		setBlogTitle(newValue);
 	};
 
 	const handleSubmit = (event) => {
@@ -22,11 +27,6 @@ function MarkedInput(props) {
 		setBlogTitle("");
 		setMarkdownText("");
 	};
-
-	const handleChange = (event) => {
-		setBlogTitle(event.target.value);
-	};
-
 	return (
 		<div className='markdown-container'>
 			<form onSubmit={handleSubmit}>
@@ -34,12 +34,11 @@ function MarkedInput(props) {
 					type='text'
 					name='blogTitle'
 					value={blogTitle}
-					onChange={handleChange}
+					onChange={onInputTitleChange}
 					label='Title'
-					required
 				/>
 				<textarea
-					onChange={onInputChange}
+					onChange={onInputBodyChange}
 					value={markdownText}
 					rows='20'
 					cols='50'
