@@ -7,7 +7,7 @@ import ToggableTabs from "../../components/toggable-tabs/toggable-tabs.component
 
 import "./EditorPage.styles.scss";
 
-export default function App() {
+export default function App({ submitPost }) {
 	const [markdownText, setMarkdownText] = useState("");
 
 	const contextValue = {
@@ -20,7 +20,7 @@ export default function App() {
 			<section className='editor-container'>
 				<ToggableTabs>
 					<div label='Markdown'>
-						<MarkedInput />
+						<MarkedInput submitPost={submitPost} />
 					</div>
 					<div label='Preview'>
 						<MarkedResult />

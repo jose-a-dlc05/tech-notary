@@ -2,10 +2,10 @@ import React from "react";
 import BlogCard from "../card/Card.component";
 import "./CardList.styles.scss";
 
-const CardList = (props) => {
+const CardList = ({ blogs }) => {
 	return (
 		<div className='card-list'>
-			{props.blogs.map((blog) => {
+			{blogs.map((blog) => {
 				return <BlogCard key={blog.id} blog={blog} />;
 			})}
 		</div>

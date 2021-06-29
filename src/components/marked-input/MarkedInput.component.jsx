@@ -44,7 +44,9 @@ function MarkedInput(props) {
 					rows='20'
 					cols='50'
 				></textarea>
-				<CustomButton type='submit'>Publish</CustomButton>
+				<CustomButton type='submit' onClick={props.submitPost}>
+					Publish
+				</CustomButton>
 			</form>
 		</div>
 	);
