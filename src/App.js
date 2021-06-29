@@ -20,7 +20,7 @@ class App extends Component {
 	};
 
 	componentDidMount() {
-		console.log("componentDidMount called");
+		// console.log("componentDidMount called");
 		localStorage.setItem("posts", JSON.stringify(blogPosts));
 		const posts = JSON.parse(localStorage.getItem("posts"));
 		this.setState({ blogPosts: posts });
@@ -29,7 +29,7 @@ class App extends Component {
 	onSubmitHandleAdd = (event) => {
 		event.preventDefault();
 
-		console.log("adding post...");
+		// console.log("adding post...");
 		const newPost = {
 			title: "Understanding React",
 			technology: "React",
@@ -40,11 +40,11 @@ class App extends Component {
 		posts.push(newPost);
 		localStorage.setItem("posts", JSON.stringify(posts));
 		this.setState({ blogPosts: posts });
-		console.log("added post");
+		// console.log("added post");
 	};
 
 	render() {
-		console.log(this.state.blogPosts);
+		// console.log(this.state.blogPosts);
 		return (
 			<div>
 				<Navbar />
