@@ -16,16 +16,22 @@ const useStyles = makeStyles((theme) => ({
 		height: 0,
 		paddingTop: "56.25%", // 16:9
 	},
+	truncate: {
+		display: "block",
+		width: "100%",
+		height: "10em",
+		overflow: "hidden",
+	},
 }));
 
 export default function BlogCard(props) {
 	const classes = useStyles();
 	return (
 		<Card className={classes.root}>
-			<CardHeader title={props.blog.title} subheader='June 15, 2021' />
+			<CardHeader title={props.blog.title} subheader={props.blog.date} />
 			<CardContent>
 				<Typography variant='body2' color='textSecondary' component='p'>
-					{props.blog.description}
+					<span className={classes.truncate}>{props.blog.description}</span>
 				</Typography>
 			</CardContent>
 			<CardActions>

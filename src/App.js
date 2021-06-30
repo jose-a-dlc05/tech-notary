@@ -8,6 +8,7 @@ import HomePage from "./pages/HomePage/HomePage.page";
 import SignInPage from "./pages/SignInPage/SignInPage.page";
 import SignUpPage from "./pages/SignUpPage/SignUpPage.page";
 import EditorPage from "./pages/EditorPage/EditorPage.page";
+import BlogPage from "./pages/BlogPage/BlogPage.page";
 import blogPosts from "./data/posts";
 import { v4 as uuidv4 } from "uuid";
 // import ProfilePage from "./pages/ProfilePage/ProfilePage.page";
@@ -64,6 +65,7 @@ class App extends Component {
 							<EditorPage {...props} submitPost={this.onSubmitHandleAdd} />
 						)}
 					/>
+					<Route path='/blog' component={BlogPage} />
 				</Switch>
 			</div>
 		);
