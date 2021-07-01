@@ -34,6 +34,7 @@ export default function App({ submitPost }) {
 					</div>
 				</ToggableTabs>
 				<CustomButton
+					className='custom-button'
 					onClick={() =>
 						submitPost({ title: blogTitle, description, body: markdownText })
 					}

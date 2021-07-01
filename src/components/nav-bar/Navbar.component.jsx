@@ -26,7 +26,9 @@ const Navbar = () => {
 				<div className='topbar'>
 					<div className='header-wrapper'>
 						<h1 className='logo'>
-							Tech<span className='logo-accent'>N</span>otes
+							<Link style={{ textDecoration: "none", color: "black" }} to='/'>
+								Tech<span className='logo-accent'>N</span>otes
+							</Link>
 						</h1>
 						<div className='burger' onClick={handleNavClick}>
 							<div className='line1'></div>
@@ -44,7 +46,7 @@ const Navbar = () => {
 							</Link>
 						</li>
 						<li className='nav-btn'>
-							<Link className='btn btn-ca' to="/signup">
+							<Link className='btn btn-ca' to='/signup'>
 								Create Account
 							</Link>
 						</li>
