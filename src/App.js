@@ -31,7 +31,7 @@ class App extends Component {
 			throw new Error("Empty Array");
 		}
 
-		if (posts.length === 0) {
+		if (!posts) {
 			localStorage.setItem("posts", JSON.stringify(blogPosts));
 			posts = blogPosts;
 		}
@@ -40,14 +40,16 @@ class App extends Component {
 	}
 
 	onSubmitHandleAdd = (post) => {
-		const { title, description } = post;
+		const { title, description, body } = post;
 		// console.log("adding post...");
 		const newPost = {
 			id: uuidv4(),
 			title,
 			description,
+			body,
 			date: "June 30, 2021",
 		};
+		// Define and initialize posts with copy of current blogPosts
 		const posts = [...this.state.blogPosts];
 		posts.push(newPost);
 		// Update localStorage

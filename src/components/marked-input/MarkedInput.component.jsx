@@ -3,9 +3,15 @@ import "./MarkedInput.styles.scss";
 import EditorContext from "../editor-context/EditorContext.component";
 import FormInput from "../form-input/form-input.component";
 
-function MarkedInput(props) {
-	const { markdownText, setMarkdownText, blogTitle, setBlogTitle } =
-		useContext(EditorContext);
+function MarkedInput() {
+	const {
+		markdownText,
+		setMarkdownText,
+		blogTitle,
+		setBlogTitle,
+		description,
+		setDescription,
+	} = useContext(EditorContext);
 
 	const onInputBodyChange = (event) => {
 		const newValue = event.currentTarget.value;
@@ -17,14 +23,21 @@ function MarkedInput(props) {
 		setBlogTitle(newValue);
 	};
 
+	const onInputDescriptionChange = (event) => {
+		const newValue = event.currentTarget.value;
+		setDescription(newValue);
+	};
+
 	const handleSubmit = (event) => {
 		event.preventDefault();
 
 		console.log(blogTitle);
 		console.log(markdownText);
+		console.log(description);
 
 		setBlogTitle("");
 		setMarkdownText("");
+		setDescription("");
 	};
 	return (
 		<div className='markdown-container'>
@@ -35,6 +48,13 @@ function MarkedInput(props) {
 					value={blogTitle}
 					onChange={onInputTitleChange}
 					label='Title'
+				/>
+				<FormInput
+					type='text'
+					name='description'
+					value={description}
+					onChange={onInputDescriptionChange}
+					label='Post Description'
 				/>
 				<textarea
 					onChange={onInputBodyChange}

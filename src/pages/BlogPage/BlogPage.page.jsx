@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import ReactMarkdown from "react-markdown";
 
 class BlogPage extends Component {
 	constructor(props) {
@@ -6,18 +7,19 @@ class BlogPage extends Component {
 
 		this.state = {
 			blogTitle: "",
-			blogDescription: "",
+			blogBody: "",
 		};
 	}
 
 	componentDidMount() {
 		console.log("componentDidMount called");
 		const posts = JSON.parse(localStorage.getItem("posts"));
+		console.log(posts);
 		posts.map((post) =>
-			post.id === "459ai"
+			post.id === "92fb590f-acbf-42fc-b4c1-0a892c3db5aa"
 				? this.setState({
 						blogTitle: post.title,
-						blogDescription: post.description,
+						blogBody: post.body,
 				  })
 				: "null"
 		);
@@ -27,7 +29,9 @@ class BlogPage extends Component {
 		return (
 			<div>
 				<h1>{this.state.blogTitle}</h1>
-				<div>{this.state.blogDescription}</div>
+				<div>
+					<ReactMarkdown children={this.state.blogBody} />
+				</div>
 			</div>
 		);
 	}

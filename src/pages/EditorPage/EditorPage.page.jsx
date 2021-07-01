@@ -11,12 +11,15 @@ import "./EditorPage.styles.scss";
 export default function App({ submitPost }) {
 	const [markdownText, setMarkdownText] = useState("");
 	const [blogTitle, setBlogTitle] = useState("");
+	const [description, setDescription] = useState("");
 
 	const contextValue = {
 		markdownText,
 		setMarkdownText,
 		blogTitle,
 		setBlogTitle,
+		description,
+		setDescription,
 	};
 
 	return (
@@ -32,7 +35,7 @@ export default function App({ submitPost }) {
 				</ToggableTabs>
 				<CustomButton
 					onClick={() =>
-						submitPost({ title: blogTitle, description: markdownText })
+						submitPost({ title: blogTitle, description, body: markdownText })
 					}
 				>
 					Publish
