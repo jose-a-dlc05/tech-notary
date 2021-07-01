@@ -22,30 +22,42 @@ class App extends Component {
 
 	componentDidMount() {
 		// console.log("componentDidMount called");
-		localStorage.setItem("posts", JSON.stringify(blogPosts));
-		const posts = JSON.parse(localStorage.getItem("posts"));
+		let posts = [];
+		try {
+			if (posts !== null && posts.length < 1) {
+				posts = JSON.parse(localStorage.getItem("posts"));
+			}
+		} catch (e) {
+			throw new Error("Empty Array");
+		}
+
+		if (posts.length === 0) {
+			localStorage.setItem("posts", JSON.stringify(blogPosts));
+			posts = blogPosts;
+		}
+
 		this.setState({ blogPosts: posts });
 	}
 
-	onSubmitHandleAdd = (event) => {
-		event.preventDefault();
-
+	onSubmitHandleAdd = (post) => {
+		const { title, description } = post;
 		// console.log("adding post...");
 		const newPost = {
-			title: "Understanding React",
-			technology: "React",
-			description: `Rorschach would say you have a hard time relating to others. Cops, another community I'm not part of. Rorschach would say you have a hard time relating to others. I'm going to tell you something that I've never told anyone before.`,
 			id: uuidv4(),
+			title,
+			description,
+			date: "June 30, 2021",
 		};
-		const posts = JSON.parse(localStorage.getItem("posts"));
+		const posts = [...this.state.blogPosts];
 		posts.push(newPost);
+		// Update localStorage
 		localStorage.setItem("posts", JSON.stringify(posts));
 		this.setState({ blogPosts: posts });
 		// console.log("added post");
 	};
 
 	render() {
-		// console.log(this.state.blogPosts);
+		console.log(this.state.blogPosts);
 		return (
 			<div>
 				<Navbar />

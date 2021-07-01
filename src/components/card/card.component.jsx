@@ -6,6 +6,7 @@ import CardContent from "@material-ui/core/CardContent";
 import CardActions from "@material-ui/core/CardActions";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
+import ReactMarkdown from "react-markdown";
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -30,8 +31,11 @@ export default function BlogCard(props) {
 		<Card className={classes.root}>
 			<CardHeader title={props.blog.title} subheader={props.blog.date} />
 			<CardContent>
-				<Typography variant='body2' color='textSecondary' component='p'>
-					<span className={classes.truncate}>{props.blog.description}</span>
+				<Typography variant='body2' color='textSecondary' component='div'>
+					<ReactMarkdown
+						className={classes.truncate}
+						children={props.blog.description}
+					/>
 				</Typography>
 			</CardContent>
 			<CardActions>

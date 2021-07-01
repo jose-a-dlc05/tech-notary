@@ -2,7 +2,6 @@ import React, { useContext } from "react";
 import "./MarkedInput.styles.scss";
 import EditorContext from "../editor-context/EditorContext.component";
 import FormInput from "../form-input/form-input.component";
-import CustomButton from "../custom-button/custom-button.component";
 
 function MarkedInput(props) {
 	const { markdownText, setMarkdownText, blogTitle, setBlogTitle } =
@@ -43,9 +42,6 @@ function MarkedInput(props) {
 					rows='20'
 					cols='50'
 				></textarea>
-				<CustomButton type='submit' onClick={props.submitPost}>
-					Publish
-				</CustomButton>
 			</form>
 		</div>
 	);
