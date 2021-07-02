@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import ReactMarkdown from "react-markdown";
+import "./BlogPage.styles.scss";
 
 class BlogPage extends Component {
 	constructor(props) {
@@ -30,7 +31,7 @@ class BlogPage extends Component {
 
 	render() {
 		return (
-			<div>
+			<div className='blog-post'>
 				<h1>{this.state.blogTitle}</h1>
 				<div>
 					<ReactMarkdown children={this.state.blogBody} />

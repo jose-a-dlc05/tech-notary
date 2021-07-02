@@ -59,7 +59,6 @@ class App extends Component {
 	};
 
 	render() {
-		console.log(this.state.blogPosts);
 		return (
 			<div>
 				<Navbar />
