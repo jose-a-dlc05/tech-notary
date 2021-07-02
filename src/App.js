@@ -39,23 +39,32 @@ class App extends Component {
 		this.setState({ blogPosts: posts });
 	}
 
+	dateObject = () => {
+		let d = new Date();
+		return d;
+	};
+
 	onSubmitHandleAdd = (post) => {
+		// Destructure the object argument
 		const { title, description, body } = post;
-		// console.log("adding post...");
+		// Declare and initialize dynamically created post
 		const newPost = {
 			id: uuidv4(),
 			title,
 			description,
 			body,
-			date: "June 30, 2021",
+			date: `${this.dateObject().toLocaleString("default", {
+				month: "short",
+			})} ${this.dateObject().getDate()}, ${this.dateObject().getFullYear()}`,
 		};
-		// Define and initialize posts with copy of current blogPosts
+		// Declare and initialize posts with copy of current blogPosts
 		const posts = [...this.state.blogPosts];
+		// Add new object to array
 		posts.push(newPost);
 		// Update localStorage
 		localStorage.setItem("posts", JSON.stringify(posts));
+		// Update state in App
 		this.setState({ blogPosts: posts });
-		// console.log("added post");
 	};
 
 	render() {
