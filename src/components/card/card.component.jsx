@@ -7,6 +7,7 @@ import CardActions from "@material-ui/core/CardActions";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import ReactMarkdown from "react-markdown";
+import { Link } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -20,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
 	truncate: {
 		display: "block",
 		width: "100%",
-		height: "10em",
+		height: "5em",
 		overflow: "hidden",
 	},
 }));
@@ -39,9 +40,11 @@ export default function BlogCard(props) {
 				</Typography>
 			</CardContent>
 			<CardActions>
-				<Button size='medium' color='primary'>
-					Read More
-				</Button>
+				<Link to={`/post/${props.blog.id}`}>
+					<Button size='medium' color='primary'>
+						Read More
+					</Button>
+				</Link>
 			</CardActions>
 		</Card>
 	);

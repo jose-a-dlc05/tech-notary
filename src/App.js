@@ -74,12 +74,15 @@ class App extends Component {
 					<Route path='/login' component={SignInPage} />
 					<Route path='/signup' component={SignUpPage} />
 					<Route
-						path='/postcreate'
+						path='/createpost'
 						render={(props) => (
 							<EditorPage {...props} submitPost={this.onSubmitHandleAdd} />
 						)}
 					/>
-					<Route path='/blog' component={BlogPage} />
+					<Route
+						path='/post/:param'
+						render={(props) => <BlogPage {...props} />}
+					/>
 				</Switch>
 			</div>
 		);

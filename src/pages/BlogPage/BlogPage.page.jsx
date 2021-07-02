@@ -12,19 +12,22 @@ class BlogPage extends Component {
 	}
 
 	componentDidMount() {
-		console.log("componentDidMount called");
+		this.getPost(this.props.match.params.param);
+		// this.setState({ blogPosts: posts });
+	}
+
+	getPost = (id) => {
 		const posts = JSON.parse(localStorage.getItem("posts"));
-		console.log(posts);
 		posts.map((post) =>
-			post.id === "92fb590f-acbf-42fc-b4c1-0a892c3db5aa"
+			post.id === id
 				? this.setState({
 						blogTitle: post.title,
 						blogBody: post.body,
 				  })
 				: "null"
 		);
-		// this.setState({ blogPosts: posts });
-	}
+	};
+
 	render() {
 		return (
 			<div>
