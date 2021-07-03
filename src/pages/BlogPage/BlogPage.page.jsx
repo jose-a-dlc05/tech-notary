@@ -43,7 +43,10 @@ class BlogPage extends Component {
 					<CustomButton style={{ backgroundColor: "#0000FF" }}>
 						Edit
 					</CustomButton>
-					<CustomButton style={{ backgroundColor: "#FF0000" }}>
+					<CustomButton
+						style={{ backgroundColor: "#FF0000" }}
+						onClick={() => this.props.onDelete(this.props.match.params.param)}
+					>
 						Delete
 					</CustomButton>
 				</div>

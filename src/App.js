@@ -49,7 +49,7 @@ class App extends Component {
 		return d;
 	};
 
-	onSubmitHandleAdd = (post) => {
+	onCreate = (post) => {
 		// Destructure the object argument
 		const { title, description, body } = post;
 		// Declare and initialize dynamically created post
@@ -69,6 +69,17 @@ class App extends Component {
 		// Update localStorage
 		localStorage.setItem("posts", JSON.stringify(posts));
 		// Update state in App
+		this.setState({ blogPosts: posts, redirect: "/home" });
+	};
+
+	onDelete = (id) => {
+		// Destructure the object argument
+		const { blogPosts } = this.state;
+		// Declare and initialize posts without the id argument
+		const posts = blogPosts.filter((blogPost) => id !== blogPost.id);
+		// Set posts in local storage
+		localStorage.setItem("posts", JSON.stringify(posts));
+		// Update blogPosts in component state with posts
 		this.setState({ blogPosts: posts, redirect: "/home" });
 	};
 
@@ -92,12 +103,12 @@ class App extends Component {
 					<Route
 						path='/createpost'
 						render={(props) => (
-							<EditorPage {...props} submitPost={this.onSubmitHandleAdd} />
+							<EditorPage {...props} onCreate={this.onCreate} />
 						)}
 					/>
 					<Route
 						path='/post/:param'
-						render={(props) => <BlogPage {...props} />}
+						render={(props) => <BlogPage {...props} onDelete={this.onDelete} />}
 					/>
 				</Switch>
 			</div>

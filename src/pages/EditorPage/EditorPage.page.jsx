@@ -8,7 +8,7 @@ import CustomButton from "../../components/custom-button/custom-button.component
 
 import "./EditorPage.styles.scss";
 
-export default function App({ submitPost }) {
+export default function App({ onCreate }) {
 	const [markdownText, setMarkdownText] = useState("");
 	const [blogTitle, setBlogTitle] = useState("");
 	const [description, setDescription] = useState("");
@@ -27,7 +27,7 @@ export default function App({ submitPost }) {
 			<section className='editor-container'>
 				<ToggableTabs>
 					<div label='Markdown'>
-						<MarkedInput submitPost={submitPost} />
+						<MarkedInput onCreate={onCreate} />
 					</div>
 					<div label='Preview'>
 						<MarkedResult />
@@ -36,7 +36,7 @@ export default function App({ submitPost }) {
 				<CustomButton
 					className='custom-button'
 					onClick={() =>
-						submitPost({ title: blogTitle, description, body: markdownText })
+						onCreate({ title: blogTitle, description, body: markdownText })
 					}
 				>
 					Publish

@@ -28,20 +28,16 @@ function MarkedInput() {
 		setDescription(newValue);
 	};
 
-	const handleSubmit = (event) => {
-		event.preventDefault();
+	// const handleSubmit = (event) => {
+	// 	event.preventDefault();
 
-		console.log(blogTitle);
-		console.log(markdownText);
-		console.log(description);
-
-		setBlogTitle("");
-		setMarkdownText("");
-		setDescription("");
-	};
+	// 	setBlogTitle("");
+	// 	setMarkdownText("");
+	// 	setDescription("");
+	// };
 	return (
 		<div className='markdown-container'>
-			<form onSubmit={handleSubmit}>
+			<form>
 				<FormInput
 					type='text'
 					name='blogTitle'
