@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Switch, Route } from "react-router-dom";
+import { Switch, Route, Redirect } from "react-router-dom";
 
 import "./App.styles.scss";
 
@@ -16,9 +16,14 @@ import { v4 as uuidv4 } from "uuid";
 import "semantic-ui-css/semantic.min.css";
 
 class App extends Component {
-	state = {
-		blogPosts: [],
-	};
+	constructor(props) {
+		super(props);
+
+		this.state = {
+			blogPosts: [],
+			redirect: null,
+		};
+	}
 
 	componentDidMount() {
 		// console.log("componentDidMount called");
@@ -54,7 +59,7 @@ class App extends Component {
 			description,
 			body,
 			date: `${this.dateObject().toLocaleString("default", {
-				month: "short",
+				month: "long",
 			})} ${this.dateObject().getDate()}, ${this.dateObject().getFullYear()}`,
 		};
 		// Declare and initialize posts with copy of current blogPosts
@@ -64,17 +69,20 @@ class App extends Component {
 		// Update localStorage
 		localStorage.setItem("posts", JSON.stringify(posts));
 		// Update state in App
-		this.setState({ blogPosts: posts });
+		this.setState({ blogPosts: posts, redirect: "/home" });
 	};
 
 	render() {
+		if (this.state.redirect) {
+			return <Redirect to={this.state.redirect} />;
+		}
 		return (
 			<div>
 				<Navbar />
 				<Switch>
 					<Route
 						exact
-						path='/'
+						path='/home'
 						render={(props) => (
 							<HomePage {...props} blogData={this.state.blogPosts} />
 						)}

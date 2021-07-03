@@ -26,7 +26,10 @@ const Navbar = () => {
 				<div className='topbar'>
 					<div className='header-wrapper'>
 						<h1 className='logo'>
-							<Link style={{ textDecoration: "none", color: "black" }} to='/'>
+							<Link
+								style={{ textDecoration: "none", color: "black" }}
+								to='/home'
+							>
 								Tech<span className='logo-accent'>N</span>otes
 							</Link>
 						</h1>
@@ -38,7 +41,7 @@ const Navbar = () => {
 					</div>
 					<ul className={menuStyles}>
 						<li className='nav-list-items'>
-							<Link className='nav-item' to='/'>
+							<Link className='nav-item' to='/home'>
 								Home
 							</Link>
 							<Link className='nav-item' to='/login'>

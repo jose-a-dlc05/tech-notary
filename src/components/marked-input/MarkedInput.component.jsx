@@ -50,7 +50,7 @@ function MarkedInput() {
 					label='Title'
 				/>
 				<FormInput
-					type='text'
+					type='textarea'
 					name='description'
 					value={description}
 					onChange={onInputDescriptionChange}
