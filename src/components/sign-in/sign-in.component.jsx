@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import FormInput from "../form-input/form-input.component";
 import CustomButton from "../custom-button/custom-button.component";
+import { Redirect } from "react-router";
+import { auth } from "../../firebase.util";
 
 import "./sign-in.styles.scss";
 
@@ -11,13 +13,21 @@ class SignIn extends Component {
 		this.state = {
 			email: "",
 			password: "",
+			redirect: null,
 		};
 	}
 
-	handleSubmit = (event) => {
+	handleSubmit = async (event) => {
 		event.preventDefault();
 
-		this.setState({ email: "", password: "" });
+		const { email, password } = this.state;
+
+		try {
+			await auth.signInWithEmailAndPassword(email, password);
+			this.setState({ email: "", password: "", redirect: true });
+		} catch (error) {
+			console.log(error);
+		}
 	};
 
 	handleChange = (event) => {
@@ -27,6 +37,10 @@ class SignIn extends Component {
 	};
 
 	render() {
+		const { redirect, email, password } = this.state;
+		if (redirect) {
+			return <Redirect to={"/home"} />;
+		}
 		return (
 			<div className='sign-in'>
 				<span>Sign in with your email and password</span>
@@ -36,7 +50,7 @@ class SignIn extends Component {
 						name='email'
 						type='email'
 						onChange={this.handleChange}
-						value={this.state.email}
+						value={email}
 						label='email'
 						required
 					/>
@@ -44,7 +58,7 @@ class SignIn extends Component {
 						name='password'
 						type='password'
 						onChange={this.handleChange}
-						value={this.state.password}
+						value={password}
 						label='password'
 						required
 					/>

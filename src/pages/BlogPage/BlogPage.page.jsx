@@ -40,7 +40,10 @@ class BlogPage extends Component {
 					</div>
 				</div>
 				<div className='blog-update-buttons'>
-					<CustomButton style={{ backgroundColor: "#0000FF" }}>
+					<CustomButton
+						style={{ backgroundColor: "#0000FF" }}
+						onClick={() => this.props.onEdit(this.props.match.params.param)}
+					>
 						Edit
 					</CustomButton>
 					<CustomButton

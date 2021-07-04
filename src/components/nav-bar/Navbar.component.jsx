@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { auth } from "../../firebase.util";
 import "./Navbar.styles.scss";
 
-const Navbar = () => {
+const Navbar = ({ currentUser }) => {
 	const [menuStyles, setMenuStyles] = useState(["nav-items"]);
 
 	const handleNavClick = () => {
@@ -44,14 +45,30 @@ const Navbar = () => {
 							<Link className='nav-item' to='/home'>
 								Home
 							</Link>
-							<Link className='nav-item' to='/login'>
-								Login
-							</Link>
-						</li>
-						<li className='nav-btn'>
-							<Link className='btn btn-ca' to='/signup'>
-								Create Account
-							</Link>
+							{currentUser ? (
+								<>
+									<Link className='nav-item' to='/'>
+										My Posts
+									</Link>
+									<Link className='nav-item' to='/createpost'>
+										Write Post
+									</Link>
+									<Link className='nav-item' onClick={() => auth.signOut()}>
+										Log out
+									</Link>
+								</>
+							) : (
+								<>
+									<Link className='nav-item' to='/login'>
+										Log in
+									</Link>
+									<li className='nav-btn'>
+										<Link className='btn btn-ca' to='/signup'>
+											Create Account
+										</Link>
+									</li>
+								</>
+							)}
 						</li>
 					</ul>
 				</div>

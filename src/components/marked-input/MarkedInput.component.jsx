@@ -28,13 +28,6 @@ function MarkedInput() {
 		setDescription(newValue);
 	};
 
-	// const handleSubmit = (event) => {
-	// 	event.preventDefault();
-
-	// 	setBlogTitle("");
-	// 	setMarkdownText("");
-	// 	setDescription("");
-	// };
 	return (
 		<div className='markdown-container'>
 			<form>

@@ -1,39 +1,79 @@
-import React, { Component } from 'react'
+import React, { Component } from "react";
 
-import FormInput from '../form-input/form-input.component';
-import CustomButton from '../custom-button/custom-button.component';
+import FormInput from "../form-input/form-input.component";
+import CustomButton from "../custom-button/custom-button.component";
+import { Redirect } from "react-router";
+import { auth, createUserProfileDocument } from "../../firebase.util";
 
 import "./sign-up.styles.scss";
 
 class SignUp extends Component {
-  constructor(){
-    super();
+	constructor() {
+		super();
 
-    this.state = {
-      displayName: "",
-      email: "",
-      password: "",
-      confirmPassword: ""
-    }
-  }
+		this.state = {
+			displayName: "",
+			email: "",
+			password: "",
+			confirmPassword: "",
+			redirect: null,
+		};
+	}
 
+	handleSubmit = async (event) => {
+		event.preventDefault();
 
-  render() {
-    const { displayName, email, password, confirmPassword } = this.state;
+		const { displayName, email, password, confirmPassword } = this.state;
 
-    return (
-      <div className = "sign-up">
-        <span>Enter email and password to create account</span>
-        <form className="sign-up-form"> 
-          <FormInput
-            type="text"
-            name="displayName"
-            value={displayName}
-            onChange={this.handleChange}
-            label="Display Name"
-            required
-          />
-          <FormInput
+		if (password !== confirmPassword) {
+			return "passwords don't match";
+		}
+
+		try {
+			const { user } = await auth.createUserWithEmailAndPassword(
+				email,
+				password
+			);
+
+			await createUserProfileDocument(user, { displayName });
+
+			this.setState({
+				displayName: "",
+				email: "",
+				password: "",
+				confirmPassword: "",
+				redirect: true,
+			});
+		} catch (error) {
+			console.log(error);
+		}
+	};
+
+	handleChange = (event) => {
+		const { name, value } = event.target;
+
+		this.setState({ [name]: value });
+	};
+
+	render() {
+		const { displayName, email, password, confirmPassword, redirect } =
+			this.state;
+		if (redirect) {
+			return <Redirect to='/home' />;
+		}
+		return (
+			<div className='sign-up'>
+				<span>Enter email and password to create account</span>
+				<form className='sign-up-form' onSubmit={this.handleSubmit}>
+					<FormInput
+						type='text'
+						name='displayName'
+						value={displayName}
+						onChange={this.handleChange}
+						label='Display Name'
+						required
+					/>
+					<FormInput
 						type='email'
 						name='email'
 						value={email}
@@ -57,11 +97,11 @@ class SignUp extends Component {
 						label='Confirm Password'
 						required
 					/>
-          <CustomButton type='submit'>SIGN UP</CustomButton>
-        </form>
-      </div>
-    )
-  }
+					<CustomButton type='submit'>SIGN UP</CustomButton>
+				</form>
+			</div>
+		);
+	}
 }
 
-export default SignUp
+export default SignUp;

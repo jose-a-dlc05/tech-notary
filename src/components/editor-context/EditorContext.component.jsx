@@ -7,6 +7,8 @@ const defaultContext = {
 	setBlogTitle: "",
 	markdownText: "",
 	setMarkdownText: "",
+	indexedPost: "",
+	setIndexedPost: "",
 };
 
 export default React.createContext(defaultContext);

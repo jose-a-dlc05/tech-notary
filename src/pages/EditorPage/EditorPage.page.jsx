@@ -8,7 +8,7 @@ import CustomButton from "../../components/custom-button/custom-button.component
 
 import "./EditorPage.styles.scss";
 
-export default function App({ onCreate }) {
+export default function App({ onCreate, post }) {
 	const [markdownText, setMarkdownText] = useState("");
 	const [blogTitle, setBlogTitle] = useState("");
 	const [description, setDescription] = useState("");

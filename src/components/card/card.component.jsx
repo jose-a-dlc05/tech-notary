@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
 	truncate: {
 		display: "block",
 		width: "100%",
-		height: "5em",
+		height: "50px",
 		overflow: "hidden",
 	},
 }));
