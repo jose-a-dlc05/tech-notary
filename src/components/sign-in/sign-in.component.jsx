@@ -39,7 +39,7 @@ class SignIn extends Component {
 	render() {
 		const { redirect, email, password } = this.state;
 		if (redirect) {
-			return <Redirect to={"/home"} />;
+			return <Redirect to={"/"} />;
 		}
 		return (
 			<div className='sign-in'>

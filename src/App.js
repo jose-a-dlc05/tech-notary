@@ -23,7 +23,6 @@ class App extends Component {
 		this.state = {
 			blogPosts: [],
 			redirect: null,
-			indexedPost: {},
 			currentUser: null,
 		};
 	}
@@ -48,17 +47,12 @@ class App extends Component {
 				 */
 
 				userRef.onSnapshot((snapShot) => {
-					this.setState(
-						{
-							currentUser: {
-								id: snapShot.id,
-								...snapShot.data(),
-							},
+					this.setState({
+						currentUser: {
+							id: snapShot.id,
+							...snapShot.data(),
 						},
-						() => {
-							console.log(this.state);
-						}
-					);
+					});
 				});
 			} else {
 				this.setState({ currentUser: userAuth });
@@ -113,7 +107,7 @@ class App extends Component {
 		localStorage.setItem("posts", JSON.stringify(posts));
 
 		// Update state in App
-		this.setState({ blogPosts: posts, redirect: "/home" });
+		this.setState({ blogPosts: posts, redirect: "/" });
 	};
 
 	onDelete = (id) => {
@@ -127,24 +121,20 @@ class App extends Component {
 		localStorage.setItem("posts", JSON.stringify(posts));
 
 		// Update blogPosts in component state with posts
-		this.setState({ blogPosts: posts, redirect: "/home" });
+		this.setState({ blogPosts: posts, redirect: "/" });
 	};
 
-	onEdit = (id) => {
-		// Define and initialize posts variable with posts object from local storage
+	onUpdate = (post) => {
 		const posts = JSON.parse(localStorage.getItem("posts"));
-
-		// Iterate through posts and have it match the id of the argument and return post
-		let blogPost;
-
-		posts.map((post) => {
-			if (post.id === id) {
-				blogPost = post;
-				return true;
+		const blogPosts = posts.map((currentPost) => {
+			if (currentPost.id === post.id) {
+				return post;
 			}
+			return currentPost;
 		});
 
-		this.setState({ indexedPost: blogPost, redirect: "/createpost" });
+		localStorage.setItem("posts", JSON.stringify(blogPosts));
+		this.setState({ blogPosts, redirect: "/" });
 	};
 
 	dateObject = () => {
@@ -155,7 +145,7 @@ class App extends Component {
 	render() {
 		const { redirect, currentUser, blogPosts } = this.state;
 		if (redirect) {
-			return <Redirect to={"/home"} />;
+			return <Redirect to={"/"} />;
 		}
 		return (
 			<div>
@@ -163,11 +153,21 @@ class App extends Component {
 				<Switch>
 					<Route
 						exact
-						path='/home'
+						path='/'
 						render={(props) => <HomePage {...props} blogData={blogPosts} />}
 					/>
 					<Route path='/login' component={SignInPage} />
 					<Route path='/signup' component={SignUpPage} />
+					<Route
+						path='/createpost/:id'
+						render={(props) => (
+							<EditorPage
+								{...props}
+								onCreate={this.onCreate}
+								onUpdate={this.onUpdate}
+							/>
+						)}
+					/>
 					<Route
 						path='/createpost'
 						render={(props) => (

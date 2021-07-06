@@ -8,7 +8,7 @@ import CustomButton from "../../components/custom-button/custom-button.component
 
 import "./EditorPage.styles.scss";
 
-export default function App({ onCreate, post }) {
+export default function App({ onCreate, onUpdate, match }) {
 	const [markdownText, setMarkdownText] = useState("");
 	const [blogTitle, setBlogTitle] = useState("");
 	const [description, setDescription] = useState("");
@@ -21,6 +21,19 @@ export default function App({ onCreate, post }) {
 		description,
 		setDescription,
 	};
+
+	const getPost = (id) => {
+		const posts = JSON.parse(localStorage.getItem("posts"));
+		const post = posts.find((post) => post.id === id);
+		return post;
+	};
+
+	if (match.params.id && !blogTitle && !markdownText && !description) {
+		const blogPost = getPost(match.params.id);
+		setBlogTitle(blogPost.title);
+		setDescription(blogPost.description);
+		setMarkdownText(blogPost.body);
+	}
 
 	return (
 		<EditorContext.Provider value={contextValue}>
@@ -35,9 +48,16 @@ export default function App({ onCreate, post }) {
 				</ToggableTabs>
 				<CustomButton
 					className='custom-button'
-					onClick={() =>
-						onCreate({ title: blogTitle, description, body: markdownText })
-					}
+					onClick={() => {
+						match.params.id
+							? onUpdate({
+									id: match.params.id,
+									title: blogTitle,
+									description,
+									body: markdownText,
+							  })
+							: onCreate({ title: blogTitle, description, body: markdownText });
+					}}
 				>
 					Publish
 				</CustomButton>

@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import ReactMarkdown from "react-markdown";
 import CustomButton from "../../components/custom-button/custom-button.component";
+import { Link } from "react-router-dom";
 import "./BlogPage.styles.scss";
 
 class BlogPage extends Component {
@@ -40,12 +41,21 @@ class BlogPage extends Component {
 					</div>
 				</div>
 				<div className='blog-update-buttons'>
-					<CustomButton
-						style={{ backgroundColor: "#0000FF" }}
-						onClick={() => this.props.onEdit(this.props.match.params.param)}
+					<Link
+						to={`/createpost/${this.props.match.params.param}`}
+						style={{
+							color: "white",
+							width: "100%",
+							overflow: "none",
+						}}
 					>
-						Edit
-					</CustomButton>
+						<CustomButton
+							style={{ backgroundColor: "#0000FF", marginLeft: "5%" }}
+						>
+							Edit
+						</CustomButton>
+					</Link>
+
 					<CustomButton
 						style={{ backgroundColor: "#FF0000" }}
 						onClick={() => this.props.onDelete(this.props.match.params.param)}

@@ -27,10 +27,7 @@ const Navbar = ({ currentUser }) => {
 				<div className='topbar'>
 					<div className='header-wrapper'>
 						<h1 className='logo'>
-							<Link
-								style={{ textDecoration: "none", color: "black" }}
-								to='/home'
-							>
+							<Link style={{ textDecoration: "none", color: "black" }} to='/'>
 								Tech<span className='logo-accent'>N</span>otes
 							</Link>
 						</h1>
@@ -42,12 +39,12 @@ const Navbar = ({ currentUser }) => {
 					</div>
 					<ul className={menuStyles}>
 						<li className='nav-list-items'>
-							<Link className='nav-item' to='/home'>
+							<Link className='nav-item' to='/'>
 								Home
 							</Link>
 							{currentUser ? (
 								<>
-									<Link className='nav-item' to='/'>
+									<Link className='nav-item' to='/my-posts'>
 										My Posts
 									</Link>
 									<Link className='nav-item' to='/createpost'>
@@ -62,6 +59,7 @@ const Navbar = ({ currentUser }) => {
 									<Link className='nav-item' to='/login'>
 										Log in
 									</Link>
+
 									<li className='nav-btn'>
 										<Link className='btn btn-ca' to='/signup'>
 											Create Account
