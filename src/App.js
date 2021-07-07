@@ -1,8 +1,5 @@
 import React, { Component } from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
-
-import "./App.styles.scss";
-
 import Navbar from "./components/nav-bar/Navbar.component";
 import HomePage from "./pages/HomePage/HomePage.page";
 import SignInPage from "./pages/SignInPage/SignInPage.page";
@@ -11,10 +8,9 @@ import EditorPage from "./pages/EditorPage/EditorPage.page";
 import BlogPage from "./pages/BlogPage/BlogPage.page";
 import blogPosts from "./data/posts";
 import { v4 as uuidv4 } from "uuid";
-import { auth, createUserProfileDocument } from "./firebase.util";
+import { auth, createUserProfileDocument, firestore } from "./firebase.util";
 // import ProfilePage from "./pages/ProfilePage/ProfilePage.page";
-
-import "semantic-ui-css/semantic.min.css";
+import "./App.styles.scss";
 
 class App extends Component {
 	constructor(props) {
@@ -65,21 +61,31 @@ class App extends Component {
 	}
 
 	getAllPosts = () => {
-		let posts = [];
-		try {
-			if (posts !== null && posts.length < 1) {
-				posts = JSON.parse(localStorage.getItem("posts"));
-			}
-		} catch (error) {
-			console.log("error getting post", error.message);
-		}
-
-		if (!posts) {
-			localStorage.setItem("posts", JSON.stringify(blogPosts));
-			posts = blogPosts;
-		}
-
-		this.setState({ blogPosts: posts });
+		firestore
+			.collection("posts")
+			.get()
+			.then((data) => {
+				let posts = [];
+				data.forEach((doc) => {
+					posts.push({
+						post: doc.id,
+						title: doc.data().title,
+						description: doc.data().description,
+						body: doc.data().body,
+						userId: doc.data().userId,
+						createdAt: `${doc
+							.data()
+							.createdAt.toDate()
+							.toLocaleString("default", {
+								month: "long",
+							})} ${doc.data().createdAt.toDate().getDate()}, ${doc
+							.data()
+							.createdAt.toDate()
+							.getFullYear()}`,
+					});
+				});
+				this.setState({ blogPosts: posts });
+			});
 	};
 
 	onCreate = (post) => {
@@ -95,6 +101,7 @@ class App extends Component {
 			date: `${this.dateObject().toLocaleString("default", {
 				month: "long",
 			})} ${this.dateObject().getDate()}, ${this.dateObject().getFullYear()}`,
+			userId: this.state.currentUser.id,
 		};
 
 		// Declare and initialize posts with copy of current blogPosts

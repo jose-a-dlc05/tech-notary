@@ -60,11 +60,11 @@ const Navbar = ({ currentUser }) => {
 										Log in
 									</Link>
 
-									<li className='nav-btn'>
+									<div className='nav-btn'>
 										<Link className='btn btn-ca' to='/signup'>
 											Create Account
 										</Link>
-									</li>
+									</div>
 								</>
 							)}
 						</li>

@@ -30,7 +30,7 @@ export default function BlogCard(props) {
 	const classes = useStyles();
 	return (
 		<Card className={classes.root}>
-			<CardHeader title={props.blog.title} subheader={props.blog.date} />
+			<CardHeader title={props.blog.title} subheader={props.blog.createdAt} />
 			<CardContent>
 				<Typography variant='body2' color='textSecondary' component='div'>
 					<ReactMarkdown
