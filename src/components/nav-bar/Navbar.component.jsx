@@ -44,7 +44,10 @@ const Navbar = ({ currentUser }) => {
 							</Link>
 							{currentUser ? (
 								<>
-									<Link className='nav-item' to='/my-posts'>
+									<Link
+										className='nav-item'
+										to={`/posts/user/${currentUser.id}`}
+									>
 										My Posts
 									</Link>
 									<Link className='nav-item' to='/createpost'>

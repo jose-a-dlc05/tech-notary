@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import MarkedInput from "../../components/marked-input/MarkedInput.component";
 import { MarkedResult } from "../../components/marked-result/MarkedResult.component";
 import EditorContext from "../../components/editor-context/EditorContext.component";
 import ToggableTabs from "../../components/toggable-tabs/toggable-tabs.components";
 import CustomButton from "../../components/custom-button/custom-button.component";
-import { firestore } from "../../firebase.util";
+// import { firestore } from "../../firebase.util";
 // import { v4 as uuidv4 } from "uuid";
 
 import "./EditorPage.styles.scss";

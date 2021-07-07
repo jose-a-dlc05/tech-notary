@@ -6,7 +6,6 @@ import SignInPage from "./pages/SignInPage/SignInPage.page";
 import SignUpPage from "./pages/SignUpPage/SignUpPage.page";
 import EditorPage from "./pages/EditorPage/EditorPage.page";
 import BlogPage from "./pages/BlogPage/BlogPage.page";
-import { v4 as uuidv4 } from "uuid";
 import { auth, createUserProfileDocument, firestore } from "./firebase.util";
 // import ProfilePage from "./pages/ProfilePage/ProfilePage.page";
 import "./App.styles.scss";
@@ -122,7 +121,17 @@ class App extends Component {
 		const posts = blogPosts.filter((blogPost) => id !== blogPost.id);
 
 		// Set posts in local storage
-		localStorage.setItem("posts", JSON.stringify(posts));
+		// localStorage.setItem("posts", JSON.stringify(posts));
+		firestore
+			.collection("posts")
+			.doc(id)
+			.delete()
+			.then(() => {
+				console.log("Document successfully deleted!");
+			})
+			.catch((error) => {
+				console.error("Error removing document: ", error);
+			});
 
 		// Update blogPosts in component state with posts
 		this.setState({ blogPosts: posts, redirect: "/" });
@@ -150,6 +159,11 @@ class App extends Component {
 			<div>
 				<Navbar currentUser={currentUser} />
 				<Switch>
+					<Route
+						exact
+						path='/posts/user/:userId'
+						render={(props) => <HomePage {...props} blogData={blogPosts} />}
+					/>
 					<Route
 						exact
 						path='/'
