@@ -6,7 +6,6 @@ import SignInPage from "./pages/SignInPage/SignInPage.page";
 import SignUpPage from "./pages/SignUpPage/SignUpPage.page";
 import EditorPage from "./pages/EditorPage/EditorPage.page";
 import BlogPage from "./pages/BlogPage/BlogPage.page";
-import blogPosts from "./data/posts";
 import { v4 as uuidv4 } from "uuid";
 import { auth, createUserProfileDocument, firestore } from "./firebase.util";
 // import ProfilePage from "./pages/ProfilePage/ProfilePage.page";
@@ -94,13 +93,10 @@ class App extends Component {
 
 		// Declare and initialize dynamically created post
 		const newPost = {
-			id: uuidv4(),
 			title,
 			description,
 			body,
-			date: `${this.dateObject().toLocaleString("default", {
-				month: "long",
-			})} ${this.dateObject().getDate()}, ${this.dateObject().getFullYear()}`,
+			createdAt: new Date(),
 			userId: this.state.currentUser.id,
 		};
 
@@ -110,8 +106,9 @@ class App extends Component {
 		// Add new object to array
 		posts.push(newPost);
 
-		// Update localStorage
-		localStorage.setItem("posts", JSON.stringify(posts));
+		// Update firebase
+		firestore.collection("posts").add(newPost);
+		// console.log(newPost);
 
 		// Update state in App
 		this.setState({ blogPosts: posts, redirect: "/" });
@@ -142,11 +139,6 @@ class App extends Component {
 
 		localStorage.setItem("posts", JSON.stringify(blogPosts));
 		this.setState({ blogPosts, redirect: "/" });
-	};
-
-	dateObject = () => {
-		let d = new Date();
-		return d;
 	};
 
 	render() {
@@ -183,13 +175,7 @@ class App extends Component {
 					/>
 					<Route
 						path='/post/:param'
-						render={(props) => (
-							<BlogPage
-								{...props}
-								onDelete={this.onDelete}
-								onEdit={this.onEdit}
-							/>
-						)}
+						render={(props) => <BlogPage {...props} onDelete={this.onDelete} />}
 					/>
 				</Switch>
 			</div>

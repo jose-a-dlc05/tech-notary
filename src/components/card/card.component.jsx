@@ -40,7 +40,7 @@ export default function BlogCard(props) {
 				</Typography>
 			</CardContent>
 			<CardActions>
-				<Link to={`/post/${props.blog.id}`}>
+				<Link to={`/post/${props.blog.post}`}>
 					<Button size='medium' color='primary'>
 						Read More
 					</Button>

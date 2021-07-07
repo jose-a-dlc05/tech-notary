@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import ReactMarkdown from "react-markdown";
 import CustomButton from "../../components/custom-button/custom-button.component";
 import { Link } from "react-router-dom";
+import { firestore } from "../../firebase.util";
 import "./BlogPage.styles.scss";
 
 class BlogPage extends Component {
@@ -20,15 +21,19 @@ class BlogPage extends Component {
 	}
 
 	getPost = (id) => {
-		const posts = JSON.parse(localStorage.getItem("posts"));
-		posts.map((post) =>
-			post.id === id
-				? this.setState({
-						blogTitle: post.title,
-						blogBody: post.body,
-				  })
-				: "null"
-		);
+		firestore
+			.collection("posts")
+			.get()
+			.then((data) => {
+				data.forEach((post) =>
+					post.id === id
+						? this.setState({
+								blogTitle: post.data().title,
+								blogBody: post.data().body,
+						  })
+						: null
+				);
+			});
 	};
 
 	render() {
