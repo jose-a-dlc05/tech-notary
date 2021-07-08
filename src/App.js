@@ -120,8 +120,6 @@ class App extends Component {
 		// Declare and initialize posts without the id argument
 		const posts = blogPosts.filter((blogPost) => id !== blogPost.id);
 
-		// Set posts in local storage
-		// localStorage.setItem("posts", JSON.stringify(posts));
 		firestore
 			.collection("posts")
 			.doc(id)
@@ -138,16 +136,10 @@ class App extends Component {
 	};
 
 	onUpdate = (post) => {
-		const posts = JSON.parse(localStorage.getItem("posts"));
-		const blogPosts = posts.map((currentPost) => {
-			if (currentPost.id === post.id) {
-				return post;
-			}
-			return currentPost;
-		});
-
-		localStorage.setItem("posts", JSON.stringify(blogPosts));
-		this.setState({ blogPosts, redirect: "/" });
+		const { id, title, description, body } = post;
+		firestore.collection("posts").doc(id).update({ title, description, body });
+		console.log("Updated Post");
+		this.setState({ redirect: "/" });
 	};
 
 	render() {
