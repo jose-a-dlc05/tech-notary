@@ -189,6 +189,7 @@ class App extends Component {
 							/>
 						)}
 					/>
+					<Route path='/post' render={(props) => <BlogPage {...props} />} />
 				</Switch>
 			</div>
 		);
