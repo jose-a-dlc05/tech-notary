@@ -181,7 +181,13 @@ class App extends Component {
 					/>
 					<Route
 						path='/post/:param'
-						render={(props) => <BlogPage {...props} onDelete={this.onDelete} />}
+						render={(props) => (
+							<BlogPage
+								{...props}
+								onDelete={this.onDelete}
+								currentUser={currentUser}
+							/>
+						)}
 					/>
 				</Switch>
 			</div>
