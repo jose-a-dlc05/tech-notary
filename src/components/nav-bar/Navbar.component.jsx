@@ -53,7 +53,11 @@ const Navbar = ({ currentUser }) => {
 									<Link className='nav-item' to='/createpost'>
 										Write Post
 									</Link>
-									<Link className='nav-item' onClick={() => auth.signOut()}>
+									<Link
+										className='nav-item'
+										to='/'
+										onClick={() => auth.signOut()}
+									>
 										Log out
 									</Link>
 								</>
