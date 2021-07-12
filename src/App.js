@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Switch, Route, Redirect } from "react-router-dom";
+import { Switch, Route } from "react-router-dom";
 import Navbar from "./components/nav-bar/Navbar.component";
 import HomePage from "./pages/HomePage/HomePage.page";
 import SignInPage from "./pages/SignInPage/SignInPage.page";
