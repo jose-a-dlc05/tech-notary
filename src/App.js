@@ -16,8 +16,8 @@ class App extends Component {
 
 		this.state = {
 			blogPosts: [],
-			redirect: null,
-			currentUser: null,
+			redirect: false,
+			currentUser: undefined,
 		};
 	}
 
@@ -28,17 +28,6 @@ class App extends Component {
 		this.unsubscribeFromAuth = auth.onAuthStateChanged(async (userAuth) => {
 			if (userAuth) {
 				const userRef = await createUserProfileDocument(userAuth);
-				/**
-				 * onSnapShot method allows us to get the data related to the user
-				 * DocumentSnapshot
-				 * We get a documentSnapshot object from our documentReference object
-				 *
-				 * The documentSnapshot object allows us to check if a document exists at
-				 * this query using the .exists property which returns a boolean.
-				 *
-				 * We can also get the actual properties on the object by calling the .data()
-				 * method, which returns us a JSON object of the document.
-				 */
 
 				userRef.onSnapshot((snapShot) => {
 					this.setState({
@@ -105,12 +94,12 @@ class App extends Component {
 		// Add new object to array
 		posts.push(newPost);
 
-		// Update firebase
-		firestore.collection("posts").add(newPost);
-		// console.log(newPost);
-
 		// Update state in App
-		this.setState({ blogPosts: posts, redirect: "/" });
+		// this.setState({ blogPosts: posts });
+
+		// Update firebase
+		return firestore.collection("posts").add(newPost);
+		// console.log(newPost);
 	};
 
 	onDelete = (id) => {
@@ -132,21 +121,21 @@ class App extends Component {
 			});
 
 		// Update blogPosts in component state with posts
-		this.setState({ blogPosts: posts, redirect: "/" });
+		this.setState({ blogPosts: posts });
 	};
 
 	onUpdate = (post) => {
 		const { id, title, description, body } = post;
-		firestore.collection("posts").doc(id).update({ title, description, body });
-		console.log("Updated Post");
-		this.setState({ redirect: "/" });
+		return firestore
+			.collection("posts")
+			.doc(id)
+			.update({ title, description, body });
+
+		// this.setState({ redirect: true });
 	};
 
 	render() {
-		const { redirect, currentUser, blogPosts } = this.state;
-		if (redirect) {
-			return <Redirect to={"/"} />;
-		}
+		const { currentUser, blogPosts } = this.state;
 		return (
 			<div>
 				<Navbar currentUser={currentUser} />
@@ -154,12 +143,24 @@ class App extends Component {
 					<Route
 						exact
 						path='/posts/user/:userId'
-						render={(props) => <HomePage {...props} blogData={blogPosts} />}
+						render={(props) => (
+							<HomePage
+								{...props}
+								blogData={blogPosts}
+								getPosts={this.getAllPosts}
+							/>
+						)}
 					/>
 					<Route
 						exact
 						path='/'
-						render={(props) => <HomePage {...props} blogData={blogPosts} />}
+						render={(props) => (
+							<HomePage
+								{...props}
+								blogData={blogPosts}
+								getPosts={this.getAllPosts}
+							/>
+						)}
 					/>
 					<Route path='/login' component={SignInPage} />
 					<Route path='/signup' component={SignUpPage} />

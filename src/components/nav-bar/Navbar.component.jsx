@@ -37,45 +37,48 @@ const Navbar = ({ currentUser }) => {
 							<div className='line3'></div>
 						</div>
 					</div>
-					<ul className={menuStyles}>
-						<li className='nav-list-items'>
-							<Link className='nav-item' to='/'>
-								Home
-							</Link>
-							{currentUser ? (
-								<>
-									<Link
-										className='nav-item'
-										to={`/posts/user/${currentUser.id}`}
-									>
-										My Posts
-									</Link>
-									<Link className='nav-item' to='/createpost'>
-										Write Post
-									</Link>
-									<Link
-										className='nav-item'
-										to='/'
-										onClick={() => auth.signOut()}
-									>
-										Log out
-									</Link>
-								</>
-							) : (
-								<>
-									<Link className='nav-item' to='/login'>
-										Log in
-									</Link>
+					{currentUser !== undefined && (
+						<ul className={menuStyles}>
+							<li className='nav-list-items'>
+								<Link className='nav-item' to='/'>
+									Home
+								</Link>
 
-									<div className='nav-btn'>
-										<Link className='btn btn-ca' to='/signup'>
-											Create Account
+								{currentUser ? (
+									<>
+										<Link
+											className='nav-item'
+											to={`/posts/user/${currentUser.id}`}
+										>
+											My Posts
 										</Link>
-									</div>
-								</>
-							)}
-						</li>
-					</ul>
+										<Link className='nav-item' to='/createpost'>
+											Write Post
+										</Link>
+										<Link
+											className='nav-item'
+											to='/'
+											onClick={() => auth.signOut()}
+										>
+											Log out
+										</Link>
+									</>
+								) : (
+									<>
+										<Link className='nav-item' to='/login'>
+											Log in
+										</Link>
+
+										<div className='nav-btn'>
+											<Link className='btn btn-ca' to='/signup'>
+												Create Account
+											</Link>
+										</div>
+									</>
+								)}
+							</li>
+						</ul>
+					)}
 				</div>
 			</div>
 		</nav>

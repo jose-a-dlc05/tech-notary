@@ -41,7 +41,6 @@ class BlogPage extends Component {
 	};
 
 	render() {
-		console.log(this.props.match.params.param);
 		return (
 			<div className='blog-page'>
 				<div className='blog-post'>

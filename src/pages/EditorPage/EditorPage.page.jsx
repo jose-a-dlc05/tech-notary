@@ -5,12 +5,14 @@ import EditorContext from "../../components/editor-context/EditorContext.compone
 import ToggableTabs from "../../components/toggable-tabs/toggable-tabs.components";
 import CustomButton from "../../components/custom-button/custom-button.component";
 import { firestore } from "../../firebase.util";
+import { Redirect } from "react-router";
 import "./EditorPage.styles.scss";
 
 export default function App({ onCreate, onUpdate, match }) {
 	const [markdownText, setMarkdownText] = useState("");
 	const [blogTitle, setBlogTitle] = useState("");
 	const [description, setDescription] = useState("");
+	const [redirect, setRedirect] = useState(false);
 
 	useEffect(() => {
 		if (match.params.id && !blogTitle && !markdownText && !description) {
@@ -50,19 +52,28 @@ export default function App({ onCreate, onUpdate, match }) {
 				</ToggableTabs>
 				<CustomButton
 					className='custom-button'
-					onClick={() => {
-						match.params.id
-							? onUpdate({
-									id: match.params.id,
-									title: blogTitle,
-									description,
-									body: markdownText,
-							  })
-							: onCreate({ title: blogTitle, description, body: markdownText });
+					onClick={async () => {
+						if (match.params.id) {
+							await onUpdate({
+								id: match.params.id,
+								title: blogTitle,
+								description,
+								body: markdownText,
+							});
+						} else {
+							await onCreate({
+								title: blogTitle,
+								description,
+								body: markdownText,
+							});
+						}
+
+						setRedirect(true);
 					}}
 				>
 					Publish
 				</CustomButton>
+				{redirect ? <Redirect to={"/"} /> : null}
 			</section>
 		</EditorContext.Provider>
 	);

@@ -2,6 +2,10 @@ import React, { Component } from "react";
 import CardList from "../../components/card-list/CardList.component";
 
 export default class HomePage extends Component {
+	componentDidMount() {
+		this.props.getPosts();
+	}
+
 	render() {
 		return (
 			<div>
