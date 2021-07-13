@@ -10,6 +10,5 @@ describe("Testing Navbar Component", () => {
 				<Navbar />
 			</MemoryRouter>
 		);
-		comp.debug();
 	});
 });

@@ -4,7 +4,7 @@ import { render } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
 
 describe.only("Testing App Component", () => {
-	test("App Component rendered to page", () => {
+	test("Logo rendered to Navbar", () => {
 		// Arrange
 		const comp = render(
 			<MemoryRouter>
@@ -12,8 +12,11 @@ describe.only("Testing App Component", () => {
 			</MemoryRouter>
 		);
 		// Act
-		comp.debug();
-		console.log(comp.container.getElementsByClassName("card-list")[0]);
-		//
+		// comp.debug();
+		const logoElement = comp.getByTestId("logo");
+		const sample = logoElement.textContent;
+		const result = "TechNotes";
+		// Assert
+		expect(sample).toBe(result);
 	});
 });

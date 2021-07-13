@@ -26,7 +26,7 @@ const Navbar = ({ currentUser }) => {
 			<div className='container'>
 				<div className='topbar'>
 					<div className='header-wrapper'>
-						<h1 className='logo'>
+						<h1 className='logo' data-testid='logo'>
 							<Link style={{ textDecoration: "none", color: "black" }} to='/'>
 								Tech<span className='logo-accent'>N</span>otes
 							</Link>
@@ -43,7 +43,6 @@ const Navbar = ({ currentUser }) => {
 								<Link className='nav-item' to='/'>
 									Home
 								</Link>
-
 								{currentUser ? (
 									<>
 										<Link
