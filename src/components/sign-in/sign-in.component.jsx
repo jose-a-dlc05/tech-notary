@@ -26,7 +26,7 @@ class SignIn extends Component {
 			await auth.signInWithEmailAndPassword(email, password);
 			this.setState({ email: "", password: "", redirect: true });
 		} catch (error) {
-			console.log(error);
+			console.log("SignIn submit error: ", error);
 		}
 	};
 
@@ -43,7 +43,7 @@ class SignIn extends Component {
 		}
 		return (
 			<div className='sign-in'>
-				<span>Sign in with your email and password</span>
+				<span data-testid='sign-in'>Sign in with your email and password</span>
 
 				<form onSubmit={this.handleSubmit}>
 					<FormInput
@@ -53,6 +53,7 @@ class SignIn extends Component {
 						value={email}
 						label='email'
 						required
+						data-testid='onChangeInputEmail'
 					/>
 					<FormInput
 						name='password'
@@ -61,6 +62,7 @@ class SignIn extends Component {
 						value={password}
 						label='password'
 						required
+						data-testid='onChangeInputPassword'
 					/>
 					<CustomButton type='submit'>Log in</CustomButton>
 				</form>

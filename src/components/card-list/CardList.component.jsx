@@ -1,12 +1,15 @@
 import React from "react";
-import BlogCard from "../card/Card.component";
+import BlogCard from "../card/card.component";
 import "./CardList.styles.scss";
 
-const CardList = ({ blogs }) => {
+const CardList = ({ blogs, userId }) => {
+	const filteredBlogs = userId
+		? blogs.filter((blog) => blog.userId === userId)
+		: blogs;
 	return (
 		<div className='card-list'>
-			{blogs.map((blog) => {
-				return <BlogCard key={blog.id} blog={blog} />;
+			{filteredBlogs.map((blog) => {
+				return <BlogCard key={blog.post} blog={blog} />;
 			})}
 		</div>
 	);

@@ -1,20 +1,14 @@
 import React, { Component } from "react";
-import { Switch, Route, Redirect } from "react-router-dom";
-
-import "./App.styles.scss";
-
+import { Switch, Route } from "react-router-dom";
 import Navbar from "./components/nav-bar/Navbar.component";
 import HomePage from "./pages/HomePage/HomePage.page";
 import SignInPage from "./pages/SignInPage/SignInPage.page";
 import SignUpPage from "./pages/SignUpPage/SignUpPage.page";
 import EditorPage from "./pages/EditorPage/EditorPage.page";
 import BlogPage from "./pages/BlogPage/BlogPage.page";
-import blogPosts from "./data/posts";
-import { v4 as uuidv4 } from "uuid";
-import { auth, createUserProfileDocument } from "./firebase.util";
+import { auth, createUserProfileDocument, firestore } from "./firebase.util";
 // import ProfilePage from "./pages/ProfilePage/ProfilePage.page";
-
-import "semantic-ui-css/semantic.min.css";
+import "./App.styles.scss";
 
 class App extends Component {
 	constructor(props) {
@@ -22,8 +16,8 @@ class App extends Component {
 
 		this.state = {
 			blogPosts: [],
-			redirect: null,
-			currentUser: null,
+			redirect: false,
+			currentUser: undefined,
 		};
 	}
 
@@ -34,17 +28,6 @@ class App extends Component {
 		this.unsubscribeFromAuth = auth.onAuthStateChanged(async (userAuth) => {
 			if (userAuth) {
 				const userRef = await createUserProfileDocument(userAuth);
-				/**
-				 * onSnapShot method allows us to get the data related to the user
-				 * DocumentSnapshot
-				 * We get a documentSnapshot object from our documentReference object
-				 *
-				 * The documentSnapshot object allows us to check if a document exists at
-				 * this query using the .exists property which returns a boolean.
-				 *
-				 * We can also get the actual properties on the object by calling the .data()
-				 * method, which returns us a JSON object of the document.
-				 */
 
 				userRef.onSnapshot((snapShot) => {
 					this.setState({
@@ -65,21 +48,31 @@ class App extends Component {
 	}
 
 	getAllPosts = () => {
-		let posts = [];
-		try {
-			if (posts !== null && posts.length < 1) {
-				posts = JSON.parse(localStorage.getItem("posts"));
-			}
-		} catch (error) {
-			console.log("error getting post", error.message);
-		}
-
-		if (!posts) {
-			localStorage.setItem("posts", JSON.stringify(blogPosts));
-			posts = blogPosts;
-		}
-
-		this.setState({ blogPosts: posts });
+		firestore
+			.collection("posts")
+			.get()
+			.then((data) => {
+				let posts = [];
+				data.forEach((doc) => {
+					posts.push({
+						post: doc.id,
+						title: doc.data().title,
+						description: doc.data().description,
+						body: doc.data().body,
+						userId: doc.data().userId,
+						createdAt: `${doc
+							.data()
+							.createdAt.toDate()
+							.toLocaleString("default", {
+								month: "long",
+							})} ${doc.data().createdAt.toDate().getDate()}, ${doc
+							.data()
+							.createdAt.toDate()
+							.getFullYear()}`,
+					});
+				});
+				this.setState({ blogPosts: posts });
+			});
 	};
 
 	onCreate = (post) => {
@@ -88,13 +81,11 @@ class App extends Component {
 
 		// Declare and initialize dynamically created post
 		const newPost = {
-			id: uuidv4(),
 			title,
 			description,
 			body,
-			date: `${this.dateObject().toLocaleString("default", {
-				month: "long",
-			})} ${this.dateObject().getDate()}, ${this.dateObject().getFullYear()}`,
+			createdAt: new Date(),
+			userId: this.state.currentUser.id,
 		};
 
 		// Declare and initialize posts with copy of current blogPosts
@@ -103,11 +94,12 @@ class App extends Component {
 		// Add new object to array
 		posts.push(newPost);
 
-		// Update localStorage
-		localStorage.setItem("posts", JSON.stringify(posts));
-
 		// Update state in App
-		this.setState({ blogPosts: posts, redirect: "/" });
+		// this.setState({ blogPosts: posts });
+
+		// Update firebase
+		return firestore.collection("posts").add(newPost);
+		// console.log(newPost);
 	};
 
 	onDelete = (id) => {
@@ -117,44 +109,58 @@ class App extends Component {
 		// Declare and initialize posts without the id argument
 		const posts = blogPosts.filter((blogPost) => id !== blogPost.id);
 
-		// Set posts in local storage
-		localStorage.setItem("posts", JSON.stringify(posts));
+		firestore
+			.collection("posts")
+			.doc(id)
+			.delete()
+			.then(() => {
+				console.log("Document successfully deleted!");
+			})
+			.catch((error) => {
+				console.error("Error removing document: ", error);
+			});
 
 		// Update blogPosts in component state with posts
-		this.setState({ blogPosts: posts, redirect: "/" });
+		this.setState({ blogPosts: posts });
 	};
 
 	onUpdate = (post) => {
-		const posts = JSON.parse(localStorage.getItem("posts"));
-		const blogPosts = posts.map((currentPost) => {
-			if (currentPost.id === post.id) {
-				return post;
-			}
-			return currentPost;
-		});
+		const { id, title, description, body } = post;
+		return firestore
+			.collection("posts")
+			.doc(id)
+			.update({ title, description, body });
 
-		localStorage.setItem("posts", JSON.stringify(blogPosts));
-		this.setState({ blogPosts, redirect: "/" });
-	};
-
-	dateObject = () => {
-		let d = new Date();
-		return d;
+		// this.setState({ redirect: true });
 	};
 
 	render() {
-		const { redirect, currentUser, blogPosts } = this.state;
-		if (redirect) {
-			return <Redirect to={"/"} />;
-		}
+		const { currentUser, blogPosts } = this.state;
 		return (
 			<div>
 				<Navbar currentUser={currentUser} />
 				<Switch>
 					<Route
 						exact
+						path='/posts/user/:userId'
+						render={(props) => (
+							<HomePage
+								{...props}
+								blogData={blogPosts}
+								getPosts={this.getAllPosts}
+							/>
+						)}
+					/>
+					<Route
+						exact
 						path='/'
-						render={(props) => <HomePage {...props} blogData={blogPosts} />}
+						render={(props) => (
+							<HomePage
+								{...props}
+								blogData={blogPosts}
+								getPosts={this.getAllPosts}
+							/>
+						)}
 					/>
 					<Route path='/login' component={SignInPage} />
 					<Route path='/signup' component={SignUpPage} />
@@ -180,10 +186,11 @@ class App extends Component {
 							<BlogPage
 								{...props}
 								onDelete={this.onDelete}
-								onEdit={this.onEdit}
+								currentUser={currentUser}
 							/>
 						)}
 					/>
+					<Route path='/post' render={(props) => <BlogPage {...props} />} />
 				</Switch>
 			</div>
 		);

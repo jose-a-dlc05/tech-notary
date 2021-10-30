@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
 	truncate: {
 		display: "block",
 		width: "100%",
-		height: "50px",
+		height: "44px",
 		overflow: "hidden",
 	},
 }));
@@ -30,7 +30,7 @@ export default function BlogCard(props) {
 	const classes = useStyles();
 	return (
 		<Card className={classes.root}>
-			<CardHeader title={props.blog.title} subheader={props.blog.date} />
+			<CardHeader title={props.blog.title} subheader={props.blog.createdAt} />
 			<CardContent>
 				<Typography variant='body2' color='textSecondary' component='div'>
 					<ReactMarkdown
@@ -40,7 +40,7 @@ export default function BlogCard(props) {
 				</Typography>
 			</CardContent>
 			<CardActions>
-				<Link to={`/post/${props.blog.id}`}>
+				<Link to={`/post/${props.blog.post}`}>
 					<Button size='medium' color='primary'>
 						Read More
 					</Button>

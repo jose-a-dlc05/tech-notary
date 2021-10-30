@@ -26,7 +26,7 @@ const Navbar = ({ currentUser }) => {
 			<div className='container'>
 				<div className='topbar'>
 					<div className='header-wrapper'>
-						<h1 className='logo'>
+						<h1 className='logo' data-testid='logo'>
 							<Link style={{ textDecoration: "none", color: "black" }} to='/'>
 								Tech<span className='logo-accent'>N</span>otes
 							</Link>
@@ -37,38 +37,47 @@ const Navbar = ({ currentUser }) => {
 							<div className='line3'></div>
 						</div>
 					</div>
-					<ul className={menuStyles}>
-						<li className='nav-list-items'>
-							<Link className='nav-item' to='/'>
-								Home
-							</Link>
-							{currentUser ? (
-								<>
-									<Link className='nav-item' to='/my-posts'>
-										My Posts
-									</Link>
-									<Link className='nav-item' to='/createpost'>
-										Write Post
-									</Link>
-									<Link className='nav-item' onClick={() => auth.signOut()}>
-										Log out
-									</Link>
-								</>
-							) : (
-								<>
-									<Link className='nav-item' to='/login'>
-										Log in
-									</Link>
-
-									<li className='nav-btn'>
-										<Link className='btn btn-ca' to='/signup'>
-											Create Account
+					{currentUser !== undefined && (
+						<ul className={menuStyles}>
+							<li className='nav-list-items'>
+								<Link className='nav-item' to='/'>
+									Home
+								</Link>
+								{currentUser ? (
+									<>
+										<Link
+											className='nav-item'
+											to={`/posts/user/${currentUser.id}`}
+										>
+											My Posts
 										</Link>
-									</li>
-								</>
-							)}
-						</li>
-					</ul>
+										<Link className='nav-item' to='/createpost'>
+											Write Post
+										</Link>
+										<Link
+											className='nav-item'
+											to='/'
+											onClick={() => auth.signOut()}
+										>
+											Log out
+										</Link>
+									</>
+								) : (
+									<>
+										<Link className='nav-item' to='/login'>
+											Log in
+										</Link>
+
+										<div className='nav-btn'>
+											<Link className='btn btn-ca' to='/signup'>
+												Create Account
+											</Link>
+										</div>
+									</>
+								)}
+							</li>
+						</ul>
+					)}
 				</div>
 			</div>
 		</nav>

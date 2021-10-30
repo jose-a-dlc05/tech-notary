@@ -59,11 +59,13 @@ class SignUp extends Component {
 		const { displayName, email, password, confirmPassword, redirect } =
 			this.state;
 		if (redirect) {
-			return <Redirect to='/home' />;
+			return <Redirect to='/' />;
 		}
 		return (
 			<div className='sign-up'>
-				<span>Enter email and password to create account</span>
+				<span data-testid='sign-up'>
+					Enter email and password to create account
+				</span>
 				<form className='sign-up-form' onSubmit={this.handleSubmit}>
 					<FormInput
 						type='text'
@@ -72,6 +74,7 @@ class SignUp extends Component {
 						onChange={this.handleChange}
 						label='Display Name'
 						required
+						data-testid='onChangeDisplayName'
 					/>
 					<FormInput
 						type='email'
@@ -80,6 +83,7 @@ class SignUp extends Component {
 						onChange={this.handleChange}
 						label='Email'
 						required
+						data-testid='onChangeEmail'
 					/>
 					<FormInput
 						type='password'
@@ -88,6 +92,7 @@ class SignUp extends Component {
 						onChange={this.handleChange}
 						label='Password'
 						required
+						data-testid='onChangePassword'
 					/>
 					<FormInput
 						type='password'
@@ -96,6 +101,7 @@ class SignUp extends Component {
 						onChange={this.handleChange}
 						label='Confirm Password'
 						required
+						data-testid='onChangePasswordConfirmation'
 					/>
 					<CustomButton type='submit'>SIGN UP</CustomButton>
 				</form>

@@ -12,6 +12,7 @@ export function MarkedResult() {
 		<section className='result-container'>
 			<div className='result-area'>
 				<h1>{blogTitle}</h1>
+				<br />
 				<ReactMarkdown
 					children={markdownText}
 					rehypePlugins={[rehypeHighlight]}
