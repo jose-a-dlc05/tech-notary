@@ -1,6 +1,6 @@
 <!-- Please update value in the {}  -->
 
-<h1 align="center">Tech Notary</h1>
+<h1 align="left">Tech Notary</h1>
 
 <div align="center">
   <h3>
