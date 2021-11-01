@@ -1,6 +1,6 @@
 <!-- Please update value in the {}  -->
 
-<h1 align="left">TechNotary</h1>
+![technotarylogo](https://drive.google.com/uc?export=view&id=1wdlQU8uYvTCuD2PjDiqGY3mxKox5qbhD)
 
 <div align="center">
   <h3>
@@ -29,9 +29,16 @@
 
 ## Overview
 
+
+![technotarylogo](https://drive.google.com/uc?export=view&id=1X4S2NBw1Q48Jq-oaO39eXeQbsyHapSxG)
+
+
+![technotarylogo](https://drive.google.com/uc?export=view&id=1E-6a2XyGqpfUDUq61Q-ASzP4wEJau93X)
+
+
 TechNotary is a blog platform that you as a developer can use to teach others or express yourself on anything tech related. This is something that can be used individually for yourself or internally inside an organization to keep each other updated on what is new or exciting in the tech industry. With TechNotary, the only constant is change, why not consistently know what changes?
 
-- Where can I see your demo?
+- Where can you see my demo?
 
   You can see my demo [here](https://tech-notary.netlify.app/)
 
