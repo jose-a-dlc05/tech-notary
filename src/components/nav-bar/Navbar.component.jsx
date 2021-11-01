@@ -1,10 +1,10 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import { auth } from "../../firebase.util";
-import "./Navbar.styles.scss";
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+import { auth } from '../../firebase.util';
+import './Navbar.styles.scss';
 
 const Navbar = ({ currentUser }) => {
-	const [menuStyles, setMenuStyles] = useState(["nav-items"]);
+	const [menuStyles, setMenuStyles] = useState(['nav-items']);
 
 	const handleNavClick = () => {
 		/**
@@ -14,9 +14,9 @@ const Navbar = ({ currentUser }) => {
 		 * false it's actually true and returns "active" and if its
 		 * false then it returns nothing
 		 */
-		const newStyles = ["nav-items", !menuStyles.includes("active") && "active"]
+		const newStyles = ['nav-items', !menuStyles.includes('active') && 'active']
 			.filter((style) => style)
-			.join(" ");
+			.join(' ');
 
 		setMenuStyles(newStyles);
 	};
@@ -27,8 +27,8 @@ const Navbar = ({ currentUser }) => {
 				<div className='topbar'>
 					<div className='header-wrapper'>
 						<h1 className='logo' data-testid='logo'>
-							<Link style={{ textDecoration: "none", color: "black" }} to='/'>
-								Tech<span className='logo-accent'>N</span>otes
+							<Link style={{ textDecoration: 'none', color: 'black' }} to='/'>
+								Tech<span className='logo-accent'>N</span>otary
 							</Link>
 						</h1>
 						<div className='burger' onClick={handleNavClick}>
