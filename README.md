@@ -47,7 +47,7 @@ TechNotary is a blog platform that you as a developer can use to teach others or
 <!-- This section should list any major frameworks that you built your project using. Here are a few examples.-->
 
 - React
-- Materialize UI
+- Material UI
 - Firebase
 - Rehype
 
